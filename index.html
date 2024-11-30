@@ -4,33 +4,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <title>sign up page</title>
+    <title>signup Page</title>
 </head>
 <body>
-    <div class="outerbox">
-        <div class="innerbox"> 
-            <header class="signup-header">
-                <h1>Signup</h1>
-                <p>it just take 30 seconds.</p>
-            </header>
-            <main class="signup-boady">
-                <form action="#">
-                        <label for="fullname">Full Name</label>
-                        <input type="text" id="fullname" placeholder="User Name" required>
-                    <br>
-                        <label for="email">User Email</label>
-                        <input type="email" id="email" placeholder="User Email" required>
-                    <br>
-                        <label for="password">Password</label>
-                        <input type="password" id="password" placeholder="User password" required>
-                    <br>
-                        <input type="submit" id="fullname" value="Creat Account">
-                </form>
-            </main>
-            <footer class="signup-footer">
-                <p>Already have an account?<a href="#">Login</a></p>
-            </footer>
-        </div>
+    <div class="signup-container">
+        <form id="signupform">
+            <h2>Signup</h2>
+            <div class="signup-group">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" placeholder="User Name" required>
+            </div>
+            <div class="signup-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" placeholder="User Email" required>
+            </div>
+            <div class="signup-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" placeholder="Password" required>
+            </div>
+                <button type="submit" class="submit-container" id="submitBtn">Submit</button>
+        </form>
     </div>
 </body>
 </html>

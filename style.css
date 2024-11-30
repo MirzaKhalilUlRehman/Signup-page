@@ -1,36 +1,69 @@
-@import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap')
-
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-boady{
-    font-family: 'Lato' , sans-serif;
-}
-.outerbox{
-    width: 100vw;
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     height: 100vh;
-    background: linear-gradient(to top left , #3ed8ff, #3ed8ff );
+    margin: 0;
+    background: linear-gradient(to right, #fbc2eb, #a6c0fe);
 }
-.innerbox{
-    width: 400px;
-    margin: 0 auto;
-    padding: 20px 40px;
+
+.signup-container {
+    background: #fff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: 350px;
     position: relative;
-    top: 40%;
-    transform: translateY(-50%);
-    background-color: white;
-    border-radius: 8px;
+    border: 1px solid #e1e1e1;
 }
-.signup-header h1{
-    font-size: 4.5rem;
-    color: #212121;
+
+h2 {
+    margin-top: 0;
+    color: #333;
+    font-size: 24px;
 }
-.signup-header p{
-    font-size: 0.8rem;
+
+.signup-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
     color: #555;
 }
-.signup-boady{
-    margin: 20px 0px;
+
+input, select {
+    width: calc(100% - 16px);
+    padding: 12px;
+    box-sizing: border-box;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 16px;
+}
+
+.submit-container {
+    position: relative;
+    bottom: 0px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+
+}
+
+button {
+    padding: 12px 25px;
+    border: none;
+    background-color: #007bff;
+    color: #fff;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+    position: absolute;
+    right: 20px;
+    bottom: 0;
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: #0056b3;
 }
