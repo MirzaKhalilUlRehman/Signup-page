@@ -1,0 +1,36 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap')
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+boady{
+    font-family: 'Lato' , sans-serif;
+}
+.outerbox{
+    width: 100vw;
+    height: 100vh;
+    background: linear-gradient(to top left , #3ed8ff, #3ed8ff );
+}
+.innerbox{
+    width: 400px;
+    margin: 0 auto;
+    padding: 20px 40px;
+    position: relative;
+    top: 40%;
+    transform: translateY(-50%);
+    background-color: white;
+    border-radius: 8px;
+}
+.signup-header h1{
+    font-size: 4.5rem;
+    color: #212121;
+}
+.signup-header p{
+    font-size: 0.8rem;
+    color: #555;
+}
+.signup-boady{
+    margin: 20px 0px;
+}
