@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const emailInput = document.getElementById('email');
     const passwordInput = document.getElementById('password');
     const submitBtn = document.getElementById('submitBtn');
+    const buttonWrapper = document.querySelector('.button-wrapper');
     const progressFill = document.getElementById('progressFill');
     const progressText = document.getElementById('progressText');
     const notification = document.getElementById('notification');
@@ -21,6 +22,12 @@ document.addEventListener('DOMContentLoaded', function() {
         email: false,
         password: false
     };
+    
+    // Button movement variables
+    let buttonPosition = 50; // Percentage from left (0-100)
+    let lastMoveTime = 0;
+    const moveCooldown = 300; // ms between moves
+    let isMoving = false;
     
     // Check if form is valid
     function isFormValid() {
@@ -40,47 +47,70 @@ document.addEventListener('DOMContentLoaded', function() {
         if (isFormValid()) {
             submitBtn.classList.add('ready');
             submitBtn.disabled = false;
+            // Reset button to center when form is valid
+            buttonPosition = 50;
+            updateButtonPosition();
         } else {
             submitBtn.classList.remove('ready');
             submitBtn.disabled = true;
         }
     }
     
-    // Move button horizontally based on cursor position
-    function moveButton(e) {
+    // Update button position based on percentage
+    function updateButtonPosition() {
+        const wrapperWidth = buttonWrapper.offsetWidth;
+        const buttonWidth = submitBtn.offsetWidth;
+        
+        // Calculate left position in pixels
+        const maxLeft = wrapperWidth - buttonWidth - 10; // 10px padding
+        const leftPosition = (buttonPosition / 100) * maxLeft;
+        
+        submitBtn.style.left = `${leftPosition}px`;
+    }
+    
+    // Move button to opposite side when cursor is near
+    function moveButtonAway(e) {
         if (isFormValid()) return; // Don't move if form is valid
         
+        const currentTime = Date.now();
+        if (currentTime - lastMoveTime < moveCooldown) return; // Cooldown check
+        
         const buttonRect = submitBtn.getBoundingClientRect();
-        const buttonCenterX = buttonRect.left + buttonRect.width / 2;
+        const wrapperRect = buttonWrapper.getBoundingClientRect();
+        
+        // Check if cursor is near the button (within 80px)
         const cursorX = e.clientX;
+        const cursorY = e.clientY;
         
-        // Calculate horizontal distance from cursor to button center
-        const distanceX = cursorX - buttonCenterX;
+        const buttonCenterX = buttonRect.left + buttonRect.width / 2;
+        const buttonCenterY = buttonRect.top + buttonRect.height / 2;
         
-        // If cursor is within 100px of button, move it horizontally
-        if (Math.abs(distanceX) < 100) {
-            // Move button away from cursor
-            const moveDirection = distanceX > 0 ? -1 : 1; // Move opposite to cursor
-            const moveDistance = 100 - Math.abs(distanceX); // More movement when closer
+        const distanceX = Math.abs(cursorX - buttonCenterX);
+        const distanceY = Math.abs(cursorY - buttonCenterY);
+        
+        // If cursor is within 80px of button center
+        if (distanceX < 80 && distanceY < 80 && !isMoving) {
+            isMoving = true;
+            lastMoveTime = currentTime;
             
-            // Get button wrapper boundaries
-            const wrapper = document.querySelector('.button-wrapper');
-            const wrapperRect = wrapper.getBoundingClientRect();
+            // Add moving class for transition
+            submitBtn.classList.add('moving');
             
-            // Calculate new position
-            let newLeft = submitBtn.offsetLeft + (moveDirection * moveDistance * 0.5);
+            // Determine current position and move to opposite side
+            if (buttonPosition > 50) {
+                // Button is on right side, move to left
+                buttonPosition = 20 + Math.random() * 20; // Random between 20-40%
+            } else {
+                // Button is on left side, move to right
+                buttonPosition = 60 + Math.random() * 20; // Random between 60-80%
+            }
             
-            // Keep button within wrapper bounds (with 10px padding)
-            const maxLeft = wrapperRect.width - buttonRect.width - 10;
-            newLeft = Math.max(10, Math.min(newLeft, maxLeft));
+            updateButtonPosition();
             
-            // Apply smooth transition
-            submitBtn.style.transition = 'left 0.3s ease-out';
-            submitBtn.style.left = newLeft + 'px';
-            
-            // Reset transition after movement
+            // Remove moving class after transition
             setTimeout(() => {
-                submitBtn.style.transition = '';
+                submitBtn.classList.remove('moving');
+                isMoving = false;
             }, 300);
         }
     }
@@ -187,8 +217,9 @@ document.addEventListener('DOMContentLoaded', function() {
             Object.keys(validationState).forEach(key => validationState[key] = false);
             updateProgress();
             
-            // Reset button position
-            submitBtn.style.left = '';
+            // Reset button to center
+            buttonPosition = 50;
+            updateButtonPosition();
             
             // Reset input classes and messages
             [usernameInput, emailInput, passwordInput].forEach(input => {
@@ -213,15 +244,29 @@ document.addEventListener('DOMContentLoaded', function() {
     passwordInput.addEventListener('blur', validatePassword);
     
     // Add mousemove listener to button wrapper
-    const buttonWrapper = document.querySelector('.button-wrapper');
-    buttonWrapper.addEventListener('mousemove', moveButton);
+    buttonWrapper.addEventListener('mousemove', moveButtonAway);
+    
+    // Also track mouse movement near the button from document
+    document.addEventListener('mousemove', function(e) {
+        if (isFormValid()) return;
+        
+        const buttonRect = submitBtn.getBoundingClientRect();
+        const cursorX = e.clientX;
+        const cursorY = e.clientY;
+        
+        // Check if cursor is within 100px of button
+        if (cursorX > buttonRect.left - 100 && cursorX < buttonRect.right + 100 &&
+            cursorY > buttonRect.top - 100 && cursorY < buttonRect.bottom + 100) {
+            moveButtonAway(e);
+        }
+    });
     
     form.addEventListener('submit', handleSubmit);
     
-    // Initialize validation
+    // Initialize validation and button position
     updateProgress();
+    updateButtonPosition();
     
-    // Center button initially
-    submitBtn.style.position = 'relative';
-    submitBtn.style.left = '0';
+    // Handle window resize
+    window.addEventListener('resize', updateButtonPosition);
 });

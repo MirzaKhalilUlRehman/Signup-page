@@ -13,7 +13,7 @@ body {
     margin: 0;
     background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
     padding: 20px;
-    overflow: hidden; /* Prevent body scrolling */
+    overflow: hidden;
 }
 
 .signup-container {
@@ -25,7 +25,7 @@ body {
     max-width: 450px;
     position: relative;
     overflow: hidden;
-    max-height: 90vh; /* Limit container height */
+    max-height: 90vh;
     display: flex;
     flex-direction: column;
 }
@@ -143,12 +143,16 @@ body {
 
 .button-wrapper {
     position: relative;
-    height: 60px;
+    height: 70px;
     margin: 20px 0;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-shrink: 0;
+    border: 2px dashed #e0e0e0;
+    border-radius: 10px;
+    background: #fafafa;
+    overflow: hidden;
 }
 
 .submit-btn {
@@ -165,20 +169,29 @@ body {
     display: flex;
     align-items: center;
     gap: 10px;
-    position: relative;
+    position: absolute;
     z-index: 10;
     min-width: 180px;
     justify-content: center;
+    left: 50%;
+    transform: translateX(-50%);
+    transition: left 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
 }
 
 .submit-btn.ready {
     background: linear-gradient(to right, #2ecc71, #1abc9c);
     box-shadow: 0 5px 15px rgba(46, 204, 113, 0.4);
     cursor: pointer;
+    transform: translateX(-50%);
+    left: 50% !important;
 }
 
 .submit-btn:not(.ready) {
     cursor: default;
+}
+
+.submit-btn.moving {
+    transition: left 0.3s ease-out;
 }
 
 .form-footer {
@@ -258,6 +271,10 @@ body {
         padding: 14px 30px;
         font-size: 16px;
         min-width: 160px;
+    }
+    
+    .button-wrapper {
+        height: 65px;
     }
 }
 
