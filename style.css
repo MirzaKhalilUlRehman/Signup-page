@@ -143,55 +143,84 @@ body {
 
 .button-wrapper {
     position: relative;
-    height: 70px;
+    height: 80px;
     margin: 20px 0;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-shrink: 0;
-    border: 2px dashed #e0e0e0;
+    background: #f8f9fa;
     border-radius: 10px;
-    background: #fafafa;
-    overflow: hidden;
+    overflow: visible;
+    border: 2px dashed #dee2e6;
 }
 
 .submit-btn {
-    padding: 16px 40px;
+    padding: 15px 35px;
     background: linear-gradient(to right, #6a11cb, #2575fc);
     color: white;
     border: none;
     border-radius: 50px;
     font-size: 18px;
     font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
+    cursor: default;
     box-shadow: 0 5px 15px rgba(106, 17, 203, 0.4);
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 10px;
     position: absolute;
-    z-index: 10;
-    min-width: 180px;
-    justify-content: center;
-    left: 50%;
-    transform: translateX(-50%);
-    transition: left 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+    min-width: 170px;
+    width: auto;
+    height: 50px;
+    top: 50%;
+    transform: translateY(-50%);
+    transition: left 0.4s ease;
+    z-index: 100;
+    white-space: nowrap;
 }
 
+/* Left position - fully visible */
+.submit-btn.left {
+    left: 10px;
+}
+
+/* Right position - fully visible */
+.submit-btn.right {
+    right: 10px;
+    left: auto;
+}
+
+/* Center position when form is ready */
 .submit-btn.ready {
     background: linear-gradient(to right, #2ecc71, #1abc9c);
     box-shadow: 0 5px 15px rgba(46, 204, 113, 0.4);
     cursor: pointer;
-    transform: translateX(-50%);
     left: 50% !important;
+    right: auto !important;
+    transform: translate(-50%, -50%);
 }
 
-.submit-btn:not(.ready) {
-    cursor: default;
+.submit-btn:hover:not(.ready) {
+    transform: translateY(-50%) scale(1.02);
 }
 
-.submit-btn.moving {
-    transition: left 0.3s ease-out;
+.submit-btn.ready:hover {
+    transform: translate(-50%, -50%) scale(1.05);
+    box-shadow: 0 8px 20px rgba(46, 204, 113, 0.5);
+}
+
+/* Instruction text */
+.button-wrapper::before {
+    content: '';
+    position: absolute;
+    bottom: -25px;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    font-size: 12px;
+    color: #6c757d;
+    font-style: italic;
 }
 
 .form-footer {
@@ -268,13 +297,14 @@ body {
     }
     
     .submit-btn {
-        padding: 14px 30px;
+        padding: 12px 25px;
         font-size: 16px;
-        min-width: 160px;
+        min-width: 140px;
+        height: 45px;
     }
     
     .button-wrapper {
-        height: 65px;
+        height: 70px;
     }
 }
 
