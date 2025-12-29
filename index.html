@@ -4,26 +4,68 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <title>signup Page</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Interactive Signup</title>
 </head>
 <body>
     <div class="signup-container">
+        <div class="header">
+            <h1><i class="fas fa-user-plus"></i> Create Account</h1>
+            <p class="subtitle">Complete all fields to submit</p>
+        </div>
+        
         <form id="signupform">
-            <h2>Signup</h2>
             <div class="signup-group">
-                <label for="username">Username:</label>
-                <input type="text" id="username" name="username" placeholder="User Name" required>
+                <label for="username">
+                    <i class="fas fa-user"></i> Username:
+                </label>
+                <input type="text" id="username" name="username" placeholder="Enter username (3-20 chars)" required>
+                <div class="validation-message" id="username-message"></div>
             </div>
+            
             <div class="signup-group">
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email" placeholder="User Email" required>
+                <label for="email">
+                    <i class="fas fa-envelope"></i> Email:
+                </label>
+                <input type="email" id="email" name="email" placeholder="user@example.com" required>
+                <div class="validation-message" id="email-message"></div>
             </div>
+            
             <div class="signup-group">
-                <label for="password">Password:</label>
-                <input type="password" id="password" name="password" placeholder="Password" required>
+                <label for="password">
+                    <i class="fas fa-lock"></i> Password:
+                </label>
+                <input type="password" id="password" name="password" placeholder="Minimum 8 characters" required>
+                <div class="validation-message" id="password-message"></div>
             </div>
-                <button type="submit" class="submit-container" id="submitBtn">Submit</button>
+            
+            <div class="progress-indicator">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+                <span class="progress-text" id="progressText">0% Complete</span>
+            </div>
+            
+            <div class="button-wrapper">
+                <button type="submit" class="submit-btn" id="submitBtn">
+                    <span class="btn-text">Submit</span>
+                    <i class="fas fa-paper-plane btn-icon"></i>
+                </button>
+            </div>
+            
+            <div class="form-footer">
+                <p>Already have an account? <a href="#">Sign In</a></p>
+            </div>
         </form>
     </div>
+
+    <div class="notification" id="notification">
+        <div class="notification-content">
+            <i class="fas fa-check-circle"></i>
+            <span id="notificationText">Form submitted successfully!</span>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
 </body>
 </html>
